@@ -9,10 +9,10 @@
             <template #sidebar>
 
                 <ul class = "menu">
-                    <li v-for="i of sidebars" v-bind:key="i.menu">
-                        {{i.menu}}
-
-                    </li></ul>
+                    <li v-for="i of sidebars" :key="i.menu">
+                        <router-link :to="i.link">{{i.menu}}</router-link>
+                    </li>
+                </ul>
             </template>
             <template #content>
                 <router-view/>
@@ -32,14 +32,18 @@
         data (){
             return {
                 sidebars: [
-                        {menu: '쓰기'},
-                        {menu: '목록'},
-                        {menu: '검색'},
-                        {menu: '수정'},
-                        {menu: '삭제'}
+                        {menu: '등록',link :'/register' },
+                        {menu: '목록', link : '/list'},
+                        {menu: '검색', link : '/search'},
+                        {menu: '수정', link : '/update'},
+                        {menu: '삭제', link : '/delete'},
+                    {menu : '회원수', link : '/counter'}
                 ]
             }
         }
+
+
+
     }
 </script>
 <style scoped>
