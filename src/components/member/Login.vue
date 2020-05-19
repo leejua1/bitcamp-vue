@@ -9,12 +9,12 @@
 
         <div class="container">
             <label><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
-
+            <input type="text" @keyup.enter="moveToPasswd"  v-model ="userid" placeholder="Enter Username" name="userid" required>
+            <h3>입력한 아이디 : {{userid}}</h3>
             <label><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-
-            <router-link to="/calculator"><button type="submit">Login</button></router-link>
+            <input type="password" @keyup.enter="login" v-model = "passwd" placeholder="Enter Password" name="password" required>
+            <h3>입력한 비밀번호 : {{passwd}}</h3>
+            <button @click = "login" type="submit" name="login" >Login</button>
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>
@@ -30,7 +30,20 @@
 
 <script>
     export default {
-        name: "login",
+        data(){
+            return{
+                'userid' : '',
+                'passwd' : ''
+            }
+        },
+        methods : {
+            moveToPasswd(){
+                document.getElementById('passwd').focus()
+        },
+            login(){
+                alert('1')
+            }
+        }
 
     }
 </script>
