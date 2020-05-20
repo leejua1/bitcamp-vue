@@ -9,10 +9,10 @@
 
         <div class="container">
             <label><b>Username</b></label>
-            <input type="text" @keyup.enter="moveToPasswd"  v-model ="userid" placeholder="Enter Username" name="userid" required>
+            <input type="text" @keyup.enter="moveToPasswd"  v-model ="userid" placeholder="Enter Username" required>
             <h3>입력한 아이디 : {{userid}}</h3>
             <label><b>Password</b></label>
-            <input type="password" @keyup.enter="login" v-model = "passwd" placeholder="Enter Password" name="password" required>
+            <input type="password" @keyup.enter="login" v-model = "passwd" placeholder="Enter Password" required>
             <h3>입력한 비밀번호 : {{passwd}}</h3>
             <button @click = "login" type="submit" name="login" >Login</button>
             <label>
@@ -32,16 +32,16 @@
     export default {
         data(){
             return{
-                'userid' : '',
-                'passwd' : ''
+                userid : '',
+                passwd : ''
             }
         },
         methods : {
             moveToPasswd(){
                 document.getElementById('passwd').focus()
         },
-            login(){
-                alert('1')
+            login(){ //actions에 있는 login을 활성화시킨다
+               this.$store.dispatch('player/login',{playerId : this.userid , backNo : this.passwd})
             }
         }
 
