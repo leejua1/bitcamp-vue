@@ -29,7 +29,15 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     export default {
+        computed : {
+            ...mapState(
+                {fail: state => state.player.fail,
+                    auth : state => state.player.auth
+                }
+            )
+        },
         data(){
             return{
                 userid : '',
@@ -40,8 +48,8 @@
             moveToPasswd(){
                 document.getElementById('passwd').focus()
         },
-            login(){ //actions에 있는 login을 활성화시킨다
-               this.$store.dispatch('player/login',{playerId : this.userid , backNo : this.passwd})
+            login(){
+               this.$store.dispatch('player/login',{playerId : '2000003' , backNo : '40'})
             }
         }
 

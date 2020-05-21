@@ -1,8 +1,9 @@
 import axios from 'axios'
+import router from '../router'
 const state = {
     context : 'http://localhost:3000/',
    player : {},
-    fail : false,
+    fail : false, //로그인 성공하면 false 실패하면 true?
     auth : false //접근권한
 }
 const actions = {
@@ -15,14 +16,19 @@ const actions = {
        }
        axios.post(url, payload, headers)
            .then(({data})=>{
-               alert('자바를 다녀옴')
-               commit('LOGIN_COMMIT', data)
+               if(data.result){
+                   commit('LOGIN_COMMIT', data)
+               }else{
+                   commit('FAIL_COMMIT')
+               }
+
            })
            .catch(()=>{
-               alert('서버전송실패')
-           state.fail = true
+               alert('서버 전송 실패')
+               state.fail = true
            })
 },
+    async logout({commit}){commit('LOGOUT_COMMIT')},
     async join({commit}){commit('join')}
 }
 const mutations = {
@@ -31,13 +37,22 @@ const mutations = {
         state.player = data.player
         localStorage.setItem('token', data.token)
         localStorage.setItem('playerId', data.player.playerId)
-        if (data.player.auth === 'USER'){
+        if (data.player.teamId === 'K10'){
             alert('일반 사용자')
-            /*일반 사용자*/
+            router.push('/home')
         }else{
             alert('관리자')
             /*관리자*/
         }
+    },
+    FAIL_COMMIT(state){
+        state.fail = true
+    }
+    ,LOGOUT_COMMIT(state){
+       localStorage.clear()
+       state.auth = false
+       state.player = {}
+       router.push('/')
     },
     join(){
         alert('회원가입 성공')
